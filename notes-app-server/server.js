@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-console.log(process.env.MONGO_URI);
+// console.log(process.env.MONGO_URI);
 
 
 const mongoose = require('mongoose');
@@ -8,6 +8,8 @@ const Note = require('./models/Note');
 
 const express = require('express');
 const cors = require('cors');
+
+
 
 const app = express();
 

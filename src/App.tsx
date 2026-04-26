@@ -17,7 +17,7 @@ export function App() {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/notes");
+        const res = await fetch("https://notes-app-1-dyqx.onrender.com/api/notes");
         const data = await res.json();
         setNotes(data);
         setIsLoaded(true);
@@ -45,7 +45,7 @@ export function App() {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/api/notes", {
+      const res = await fetch("https://notes-app-1-dyqx.onrender.com/api/notes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export function App() {
 
   async function handleDeleteNote(id: string) {
     try {
-      const res = await fetch(`http://localhost:3000/api/notes/${id}`, {
+      const res = await fetch(`https://notes-app-1-dyqx.onrender.com/api/notes/${id}`, {
         method: "DELETE",
       });
 
@@ -97,7 +97,7 @@ export function App() {
     if(!selectedNote) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/api/notes/${selectedNote._id}`, {
+      const res = await fetch(`https://notes-app-1-dyqx.onrender.com/api/notes/${selectedNote._id}`, {
         method:"PUT",
         headers: {
           "Content-Type": "application/json",
