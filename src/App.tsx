@@ -7,6 +7,18 @@ type Note = {
   content: string
 };
 
+const getUserId = () => {
+  let userId = localStorage.getItem("userId");
+
+  if(!userId) {
+    userId = crypto.randomUUID();
+    localStorage.setItem("userId", userId);
+  }
+  return userId;
+};
+
+const userId = getUserId();
+
 export function App() {
   const [notes, setNotes] = useState<Note[]>([]);
   const [title, setTitle] = useState("");
@@ -17,7 +29,7 @@ export function App() {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const res = await fetch("https://notes-app-1-dyqx.onrender.com/api/notes");
+        const res = await fetch(`https://notes-app-1-dyqx.onrender.com/api/notes?userId=${userId}`);
         const data = await res.json();
         setNotes(data);
         setIsLoaded(true);
@@ -42,6 +54,7 @@ export function App() {
     const newNote= {
       title,
       content,
+      userId,
     };
 
     try {
@@ -105,6 +118,7 @@ export function App() {
         body:JSON.stringify({
           title,
           content,
+          userId,
         }),
       });
 

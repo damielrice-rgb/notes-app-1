@@ -23,7 +23,14 @@ app.use(express.json());
 
 app.get('/api/notes', async (req, res) => {
   try { 
-    const notes = await Note.find();
+    const { userId } = req.query;
+
+    if(!userId){
+      return res.status(400).json({error: "userId is required"})
+    }
+    
+    const notes = await Note.find({ userId });
+
   res.json(notes);
 } catch (err){
   res.status(500).json({error: 'Failed to fetch notes'});
@@ -35,7 +42,8 @@ app.get('/api/notes', async (req, res) => {
     const newNote = new Note ({
       // id: Date.now(),
       title: req.body.title,
-      content: req.body.content
+      content: req.body.content,
+      userId: req.body.userId,
     });
 
     const savedNote = await newNote.save();
